@@ -18,4 +18,15 @@ public class Info : BaseCommandModule
                 break;
         }
     }
+
+    [Command("TestInter")]
+    public async Task TestInterActivity(CommandContext ctx)
+    {
+        var reallyLongString = "Lorem ipsum dolor sit amet, consectetur adipiscing ...";
+
+        var interactivity = ctx.Client.GetInteractivity();
+        var pages = interactivity.GeneratePagesInEmbed(reallyLongString);
+
+        await ctx.Channel.SendPaginatedMessageAsync(ctx.Member, pages);
+    }
 }

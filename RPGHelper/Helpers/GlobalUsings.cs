@@ -9,3 +9,5 @@ global using RPGHelper.Service;
 global using System.Text;
 global using RPGHelper.Config;
 global using Newtonsoft.Json;
+global using DSharpPlus.Interactivity;
+global using DSharpPlus.Interactivity.Extensions;
