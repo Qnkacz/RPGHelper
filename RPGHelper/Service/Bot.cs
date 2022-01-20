@@ -32,7 +32,7 @@ public class Bot
 
         CommandsNextConfiguration commandConfig = new()
         {
-            StringPrefixes = new string?[] {configWizard.ConfigJson?.Prefix, configWizard.ConfigJson?.Prefix_WHF},
+            StringPrefixes = new[] {configWizard.ConfigJson?.Prefix, configWizard.ConfigJson?.Prefix_WHF},
             EnableMentionPrefix = true,
             EnableDms = true,
             DmHelp = true,

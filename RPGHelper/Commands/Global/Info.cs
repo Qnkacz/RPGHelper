@@ -1,7 +1,3 @@
-using DSharpPlus.CommandsNext;
-using DSharpPlus.CommandsNext.Attributes;
-using RPGHelper.Helpers;
-
 namespace RPGHelper.Commands.Global;
 
 public class Info : BaseCommandModule
@@ -13,8 +9,6 @@ public class Info : BaseCommandModule
         {
             case "whf>":
                 await ctx.RespondAsync("This is some warhammer info");
-                break;
-            default:
                 break;
         }
     }

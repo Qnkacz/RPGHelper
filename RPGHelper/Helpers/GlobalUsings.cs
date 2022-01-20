@@ -11,3 +11,6 @@ global using RPGHelper.Config;
 global using Newtonsoft.Json;
 global using DSharpPlus.Interactivity;
 global using DSharpPlus.Interactivity.Extensions;
+global using DSharpPlus.CommandsNext;
+global using DSharpPlus.CommandsNext.Attributes;
+global using RPGHelper.Helpers;
