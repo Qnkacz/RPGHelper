@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGHelper", "RPGHelper\RPGH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGHelper.Context", "RPGHelper.Context\RPGHelper.Context.csproj", "{8079C588-D3BB-44AF-9FD2-E20BB81C0F72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGHelper.Models", "RPGHelper.Models\RPGHelper.Models.csproj", "{B2256A66-4460-4912-AACA-3D63E417CA61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{8079C588-D3BB-44AF-9FD2-E20BB81C0F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8079C588-D3BB-44AF-9FD2-E20BB81C0F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8079C588-D3BB-44AF-9FD2-E20BB81C0F72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2256A66-4460-4912-AACA-3D63E417CA61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2256A66-4460-4912-AACA-3D63E417CA61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2256A66-4460-4912-AACA-3D63E417CA61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2256A66-4460-4912-AACA-3D63E417CA61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
