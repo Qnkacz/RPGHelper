@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\RPGHelper.Models\RPGHelper.Models.csproj"/>
+        <ProjectReference Include="..\RPGHelper.Models\RPGHelper.Models.csproj" />
     </ItemGroup>
 
 </Project>
