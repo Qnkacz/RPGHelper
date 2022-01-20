@@ -1,0 +1,11 @@
+global using DSharpPlus;
+global using DSharpPlus.CommandsNext;
+global using DSharpPlus.EventArgs;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using RPGHelper.Commands.Global;
+global using RPGHelper.Helpers;
+global using RPGHelper.Service;
+global using System.Text;
+global using RPGHelper.Config;
+global using Newtonsoft.Json;

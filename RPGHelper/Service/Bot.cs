@@ -1,15 +1,3 @@
-using System.Text;
-using System.Text.Json.Nodes;
-using DSharpPlus;
-using DSharpPlus.CommandsNext;
-using DSharpPlus.EventArgs;
-using Emzi0767.Utilities;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using RPGHelper.Commands.Global;
-using RPGHelper.Config;
-using RPGHelper.Helpers;
 
 namespace RPGHelper.Service;
 
