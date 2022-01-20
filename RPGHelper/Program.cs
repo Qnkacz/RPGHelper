@@ -1,3 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-Console.WriteLine("Hello, World!");
+global using RPGHelper.Service;
+
+Bot bot = new();
+bot.RunAsync().GetAwaiter().GetResult();
