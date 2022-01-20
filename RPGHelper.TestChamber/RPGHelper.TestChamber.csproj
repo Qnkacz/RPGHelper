@@ -7,4 +7,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\RPGHelper.Context\RPGHelper.Context.csproj" />
+      <ProjectReference Include="..\RPGHelper.Models\RPGHelper.Models.csproj" />
+    </ItemGroup>
+
 </Project>
