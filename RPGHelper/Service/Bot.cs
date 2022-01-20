@@ -4,9 +4,12 @@ using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.EventArgs;
 using Emzi0767.Utilities;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using RPGHelper.Commands.Global;
 using RPGHelper.Config;
+using RPGHelper.Helpers;
 
 namespace RPGHelper.Service;
 
@@ -17,16 +20,16 @@ public class Bot
     public async Task RunAsync()
     {
 
-        var json = string.Empty;
-        await using var fs = File.OpenRead("config.json");
-        using var sr = new StreamReader(fs, new UTF8Encoding(false));
-        json = await sr.ReadToEndAsync().ConfigureAwait(false);
+        ConfigWizard configWizard = new();
 
-        var configJson = JsonConvert.DeserializeObject<ConfigJson>(json);
+        var services = new ServiceCollection()
+            .AddSingleton<Random>()
+            .AddSingleton(configWizard)
+            .BuildServiceProvider();
         
         DiscordConfiguration config =new()
         {
-            Token = configJson.Token,
+            Token = configWizard.ConfigJson?.Token,
             TokenType = TokenType.Bot,
             AutoReconnect = true,
             MinimumLogLevel = LogLevel.Debug
@@ -36,14 +39,16 @@ public class Bot
 
         CommandsNextConfiguration commandConfig = new()
         {
-            StringPrefixes = new string[]{configJson.Prefix, configJson.Prefix_WHF},
+            StringPrefixes = new string?[]{configWizard.ConfigJson?.Prefix, configWizard.ConfigJson?.Prefix_WHF},
             EnableMentionPrefix = true,
             EnableDms = true,
             DmHelp = true,
-            IgnoreExtraArguments = false
+            IgnoreExtraArguments = false,
+            Services = services
         };
 
         Commands = Client.UseCommandsNext(commandConfig);
+        Commands.RegisterCommands<Info>();
         await Client.ConnectAsync();
 
         await Task.Delay(-1);

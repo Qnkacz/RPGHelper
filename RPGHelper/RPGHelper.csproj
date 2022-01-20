@@ -15,7 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\Global" />
       <Folder Include="Commands\WarhammerFantasy" />
     </ItemGroup>
 
