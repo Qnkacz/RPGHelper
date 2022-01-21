@@ -1,6 +1,6 @@
 namespace RPGHelper.Models.Models.WarhammerFantasy.Magic;
 
-public interface ISpell
+public enum MagicType
 {
-    
+    Arcane,Divine
 }

@@ -17,5 +17,5 @@ public class PlayerCharacter
     
     public List<BodyPart> BodyParts { get; set; }
     public Equipment Equipment { get; set; }
-    public List<ISpell> Spells { get; set; }
+    public List<Spell> Spells { get; set; }
 }
