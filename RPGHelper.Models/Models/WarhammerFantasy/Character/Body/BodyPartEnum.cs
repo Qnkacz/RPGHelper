@@ -1,6 +1,6 @@
 namespace RPGHelper.Context.Models.WarhammerFantasy.Character;
 
-public enum BodyPart
+public enum BodyPartEnum
 {
     Head,RightArm,LeftArm,Body,LeftLeg,RightLeg,All
 }

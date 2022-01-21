@@ -9,7 +9,7 @@ public class Armour : IItem
     public int Cost { get; set; }
     public int Encumbrance { get; set; }
     public int AP { get; set; }
-    public List<BodyPart> LocationCovered { get; set; }
+    public List<BodyPartEnum> LocationCovered { get; set; }
     public Availability Availability { get; set; }
     public ItemCraftsmanship Craftsmanship { get; set; }
 }
