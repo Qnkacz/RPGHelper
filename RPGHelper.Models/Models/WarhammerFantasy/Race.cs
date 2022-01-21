@@ -1,6 +1,6 @@
 namespace RPGHelper.Models.Models.WarhammerFantasy;
 
-public class Race
+public enum Race
 {
-    public string Name { get; set; }
+    Human,Elf,Dwarf,Halfing
 }
