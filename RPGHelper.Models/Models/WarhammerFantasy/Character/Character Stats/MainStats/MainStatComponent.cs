@@ -32,4 +32,37 @@ public class MainStatComponent
         a.CurrentValue += b.CurrentValue;
         return a;
     }
+    
+    public static MainStatComponent operator -(MainStatComponent a, MainStatComponent b)
+    {
+        if (a.StatTypeEnum != b.StatTypeEnum) throw new Exception("Wrong components added");
+        a.StartValue -= b.StartValue;
+        a.AdvanceValue -= b.AdvanceValue;
+        a.CurrentValue -= b.CurrentValue;
+        return a;
+    }
+
+    public void AddTo(string PropertyName,object value)
+    {
+        var property = GetType().GetProperties().First(info => info.Name == PropertyName);
+        var prevValue = property.GetValue(this);
+        if (property is string)
+        {
+            property.SetValue(this,(property.GetValue(this)+(string)value));
+        }
+        else
+        {
+            property.SetValue(this,(int)property.GetValue(this)!+(int)value);
+        }
+    }
+
+    public MainStatComponent(MainStatTypeEnum type)
+    {
+        Name = type.ToString();
+    }
+
+    public MainStatComponent()
+    {
+        
+    }
 }

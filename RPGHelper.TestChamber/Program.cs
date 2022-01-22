@@ -26,3 +26,5 @@ Console.WriteLine(something.ToString());
 Console.WriteLine(somethingElse.ToString());
 something += somethingElse;
 Console.WriteLine(something);
+something.AddTo("StartValue",-9000);
+Console.WriteLine(something);
