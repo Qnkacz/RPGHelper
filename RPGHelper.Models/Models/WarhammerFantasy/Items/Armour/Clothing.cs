@@ -2,7 +2,7 @@ using RPGHelper.Models.Models.WarhammerFantasy.Items.Enums;
 
 namespace RPGHelper.Models.Models.WarhammerFantasy.Items.Armour;
 
-public class Clothing : IItem
+public class Clothing : Item
 {
     public string Name { get; set; }
     public int Cost { get; set; }

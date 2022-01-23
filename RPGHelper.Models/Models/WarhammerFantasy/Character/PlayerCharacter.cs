@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using RPGHelper.Models.Models.WarhammerFantasy;
 using RPGHelper.Models.Models.WarhammerFantasy.Items;
 using RPGHelper.Models.Models.WarhammerFantasy.Magic;
@@ -6,6 +7,8 @@ namespace RPGHelper.Context.Models.WarhammerFantasy.Character;
 
 public class PlayerCharacter
 {
+    [Key]
+    public int Id { get; set; }
     public string Name { get; set; }
     public Race Race { get; set; }
     public Career Career { get; set; }

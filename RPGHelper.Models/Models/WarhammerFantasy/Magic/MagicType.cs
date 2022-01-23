@@ -2,5 +2,6 @@ namespace RPGHelper.Models.Models.WarhammerFantasy.Magic;
 
 public enum MagicType
 {
-    Arcane,Divine
+    Arcane=0,
+    Divine=1
 }

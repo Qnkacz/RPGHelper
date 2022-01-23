@@ -2,7 +2,7 @@ using RPGHelper.Models.Models.WarhammerFantasy.Items.Enums;
 
 namespace RPGHelper.Models.Models.WarhammerFantasy.Items.Food_and_Drinks;
 
-public class Food : IItem
+public class Food : Item
 {
     public string Name { get; set; }
     public int Amount { get; set; }

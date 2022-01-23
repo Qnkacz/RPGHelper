@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace RPGHelper.Context.Models.WarhammerFantasy.Character;
 
 public class PersonalDetails
 {
+    [Key]
+    public int Id { get; set; }
     public int Age { get; set; }
     public Gender Gender { get; set; }
     public string EyeColor { get; set; }
@@ -11,5 +15,6 @@ public class PersonalDetails
     public StarSign StarSign { get; set; }
     public int SyblingCount { get; set; }
     public string Birthplace { get; set; }
-    public List<string> Marks { get; set; }
+    public List<Mark> Marks { get; set; }
 }
+

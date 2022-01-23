@@ -2,7 +2,7 @@ using RPGHelper.Models.Models.WarhammerFantasy.Items.Enums;
 
 namespace RPGHelper.Models.Models.WarhammerFantasy.Items.Misc;
 
-public class MagicItem : IItem
+public class MagicItem : Item
 {
     public string Name { get; set; }
     public int Cost { get; set; }

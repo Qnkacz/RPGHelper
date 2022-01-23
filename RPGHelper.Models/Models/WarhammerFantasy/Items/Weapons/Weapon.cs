@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using RPGHelper.Models.Models.WarhammerFantasy.Items.Enums;
 
 namespace RPGHelper.Models.Models.WarhammerFantasy.Items;
 
-public class Weapon : IItem
+public class Weapon : Item
 {
+    [Key]
     public string Name { get; set; }
     public Availability Availability { get; set; }
     public ItemCraftsmanship Craftsmanship { get; set; }

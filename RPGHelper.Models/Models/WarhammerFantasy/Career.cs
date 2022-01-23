@@ -1,9 +1,11 @@
+using System.ComponentModel.DataAnnotations;
 using RPGHelper.Context.Models.WarhammerFantasy.Character;
 
 namespace RPGHelper.Models.Models.WarhammerFantasy;
 
 public class Career
 {
+    [Key]
     public string Name { get; set; }
     public bool IsAdvanced { get; set; }
     public string Description { get; set; }

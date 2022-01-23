@@ -1,13 +1,18 @@
+using System.ComponentModel.DataAnnotations;
+using RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats;
+
 namespace RPGHelper.Context.Models.WarhammerFantasy.Character;
 
 public class SecondaryStats
 {
-    public int A { get; set; }
-    public int W { get; set; }
-    public int SB { get; set; }
-    public int TB { get; set; }
-    public int M { get; set; }
-    public int Mag { get; set; }
-    public int IP { get; set; }
-    public int FP { get; set; }
+    [Key]
+    public int Id { get; set; }
+    public SecondaryStatComponent A { get; set; }
+    public SecondaryStatComponent W { get; set; }
+    public SecondaryStatComponent SB { get; set; }
+    public SecondaryStatComponent TB { get; set; }
+    public SecondaryStatComponent M { get; set; }
+    public SecondaryStatComponent Mag { get; set; }
+    public SecondaryStatComponent IP { get; set; }
+    public SecondaryStatComponent FP { get; set; }
 }
