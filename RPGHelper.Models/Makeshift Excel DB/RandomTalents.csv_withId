@@ -1,0 +1,24 @@
+Id,Name,HalfingDiceMin,HalfingDiceMax,HumanDiceMin,HumanDiceMax
+0,Acute Hearing,01,05,01,04
+1,Ambidextrous,06,10,05,09
+2,Coolheaded,11,15,10,13
+3,Excellent Vision,16,20,14,18
+4,Fleet Footed,21,25,19,22
+5,Hardy,26,29,23,27
+6,Lightning Reflexes,30,33,28,31
+7,Luck,34,38,32,35
+8,Marksman,39,42,36,40
+9,Mimic,43,47,41,44
+10,Night Vision,-1,-1,45,49
+11,Resistance to Disease,48,51,50,53
+12,Resistance to Magic,52,53,54,57
+13,Resistance to Poison,54,57,58,61
+14,Savvy,58,62,62,66
+15,Sixth Sense,63,67,67,71
+16,Strong-minded,68,72,72,75
+17,Sturdy,73,77,76,79
+18,Suave,78,82,80,83
+19,Super Numerate,83,87,84,87
+20,Very Resilient,88,91,88,91
+21,Very Strong,92,95,92,95
+22,Warrior Born,96,00,96,00

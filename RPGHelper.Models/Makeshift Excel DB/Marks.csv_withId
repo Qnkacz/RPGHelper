@@ -1,0 +1,22 @@
+Id,Roll,RollMax,Result
+0,1,5,Pox Marks
+1,6,10,Ruddy Faced
+2,11,15,Scar
+3,16,20,Tattoo
+4,21,25,Earring
+5,26,29,Ragged Ear
+6,30,35,Nose Ring
+7,36,39,Wart
+8,40,45,Broken Nose
+9,46,50,Missing Tooth
+10,51,55,Snaggle Teeth
+11,56,60,Lazy Eye
+12,61,65,Missing Eyebrow(s)
+13,66,70,Missing Digit
+14,71,75,Missing Nail
+15,76,80,Distinctive Gait
+16,81,84,Curious Smell
+17,85,89,Huge Nose
+18,90,94,Large Mole
+19,95,98,Small Bald Patch
+20,99,100,Strange Coloured Eye(s)

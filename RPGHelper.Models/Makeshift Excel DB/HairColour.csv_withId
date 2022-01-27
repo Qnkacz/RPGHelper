@@ -1,0 +1,11 @@
+Id,Roll,Dwarf,Elf,Halfling,Human
+0,1,  Ash Blond,  Silver,  Ash Blond , Ash Blond
+1,2,  Yellow,  Ash Blond,  Corn,  Corn
+2,3,  Red,  Corn , Yellow,  Yellow
+3,4,  Copper,  Yellow , Yellow,  Copper
+4,5,  Light Brown,  Copper , Copper , Red
+5,6,  Brown,  Light Brown , Red , Light Brown
+6,7,  Brown,  Light Brown,  Light Brown,  Brown
+7,8,  Dark Brown,  Brown , Brown , Brown
+8,9,  Blue Black,  Dark Brown , Dark Brown , Dark Brown
+9,10,  Black,  Black,  Black,  Black

@@ -1,0 +1,5 @@
+Id,Race,Base,DieCount,DieType
+0,Dwarf,4'2",1,10
+1,Elf,5'4",1,10
+2,Halfing,3'2",1,10
+3,Human,5'1",1,10
