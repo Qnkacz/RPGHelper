@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGHelper.Models", "RPGHelp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGHelper.TestChamber", "RPGHelper.TestChamber\RPGHelper.TestChamber.csproj", "{4C2B1121-6B4A-417D-BD35-FCBB26903F99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPGHelper.Functionality", "RPGHelper.Functionality\RPGHelper.Functionality.csproj", "{B55BAF66-A3AB-48C6-B836-AA2E9EF1A070}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{4C2B1121-6B4A-417D-BD35-FCBB26903F99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C2B1121-6B4A-417D-BD35-FCBB26903F99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C2B1121-6B4A-417D-BD35-FCBB26903F99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B55BAF66-A3AB-48C6-B836-AA2E9EF1A070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B55BAF66-A3AB-48C6-B836-AA2E9EF1A070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B55BAF66-A3AB-48C6-B836-AA2E9EF1A070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B55BAF66-A3AB-48C6-B836-AA2E9EF1A070}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

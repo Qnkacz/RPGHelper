@@ -1,7 +1,7 @@
 using System.Globalization;
 using CsvHelper;
 
-namespace RPGHelper.Helpers;
+namespace RPGHelper.Functionality;
 
 public static class CSVHelper
 {
