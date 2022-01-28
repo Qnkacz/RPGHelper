@@ -1,20 +1,23 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+
 using System.Globalization;
-using System.Threading.Channels;
 using CsvHelper;
-using RPGHelper.Context.Models.WarhammerFantasy.Character;
-using RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats;
 
-var files = Directory.GetFiles("/home/qnku/RiderProjects/RPGHelper/RPGHelper.Models/Makeshift Excel DB",
-    "*.csv", SearchOption.AllDirectories);
+var reader = new StreamReader("/home/qnku/RiderProjects/RPGHelper/RPGHelper.Models/Makeshift Excel DB/Weight.csv");
+var csv = new CsvReader(reader, CultureInfo.CurrentCulture);
+
+var records = csv.GetRecords<dynamic>();
 
 
-foreach (var file in files)
+void AddIdsToAllCsvFiles(string directoryPath)
 {
-    AddIds(file);
+    var files = Directory.GetFiles(directoryPath, "*.csv", SearchOption.AllDirectories);
+    foreach (var file in files)
+    {
+        AddIds(file);
+    }
 }
-
 void AddIds(string path)
 {
     if (!File.Exists(path))
