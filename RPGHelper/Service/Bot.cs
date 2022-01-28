@@ -1,3 +1,5 @@
+using DSharpPlus.Entities;
+
 namespace RPGHelper.Service;
 
 public class Bot
@@ -24,6 +26,11 @@ public class Bot
         };
         Client = new DiscordClient(config);
         Client.Ready += OnClientReady;
+        Client.ComponentInteractionCreated += async (s, e) =>
+        {
+            await e.Interaction.CreateResponseAsync(InteractionResponseType.UpdateMessage,
+                new DiscordInteractionResponseBuilder().WithContent($"You've made your choice!"));
+        };
 
         Client.UseInteractivity(new InteractivityConfiguration
         {
