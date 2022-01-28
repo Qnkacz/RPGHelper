@@ -1,10 +1,9 @@
 using System.Globalization;
 using CsvHelper;
-using RPGHelper.Context.Models.WarhammerFantasy.Character;
 
-namespace RPGHelper.TestChamber.CSV_to_class_converters;
+namespace RPGHelper.Helpers;
 
-public static class CsvToClassConverter
+public static class CSVHelper
 {
     public static List<dynamic>? GetDynamicFromCsvFile(string path)
     {

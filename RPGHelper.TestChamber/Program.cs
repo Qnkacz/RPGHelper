@@ -1,14 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
-using System.Globalization;
-using CsvHelper;
-
-var reader = new StreamReader("/home/qnku/RiderProjects/RPGHelper/RPGHelper.Models/Makeshift Excel DB/Weight.csv");
-var csv = new CsvReader(reader, CultureInfo.CurrentCulture);
-
-var records = csv.GetRecords<dynamic>();
-
 
 void AddIdsToAllCsvFiles(string directoryPath)
 {
