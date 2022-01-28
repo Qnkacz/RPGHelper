@@ -1,5 +1,5 @@
 Id,Race,base,dieCount,DieType
-0,Dwarf,4'4",1,10
-1,Elf,5'6",1,10
-2,Halfing,3'4",1,10
-3,Human,5'4",1,10
+0,Dwarf,4 foot 4 inch,1,10
+1,Elf,5 foot 6 inch,1,10
+2,Halfing,3 foot 4 inch,1,10
+3,Human,5 foot 4 inch,1,10

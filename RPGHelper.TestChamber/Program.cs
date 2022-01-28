@@ -1,6 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using RPGHelper.Functionality.Models.WarhammerFantasy;
 
+var result =await Talents.GetTalents();
+
+foreach (var o in result)
+{
+    Console.WriteLine(o.Name);
+}
 
 void AddIdsToAllCsvFiles(string directoryPath)
 {
