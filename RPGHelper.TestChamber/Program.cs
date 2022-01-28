@@ -2,13 +2,13 @@
 
 using RPGHelper.Functionality.Models.WarhammerFantasy;
 
-var result =await Talents.GetTalents();
-
-foreach (var o in result)
-{
-    Console.WriteLine(o.Name);
-}
-
+// var result =await Talents.GetTalents();
+//
+// foreach (var o in result)
+// {
+//     Console.WriteLine(o.Name);
+// }
+AddIdsToAllCsvFiles("/home/qnku/RiderProjects/RPGHelper/RPGHelper.Models/Makeshift Excel DB");
 void AddIdsToAllCsvFiles(string directoryPath)
 {
     var files = Directory.GetFiles(directoryPath, "*.csv", SearchOption.AllDirectories);
