@@ -17,8 +17,6 @@ public class PlayerCharacter
     public List<Skill> KnownSkills { get; set; }
     public List<Talent> KnownTalents { get; set; }
     public List<Weapon> Weapons { get; set; }
-    
-    public List<BodyPart> BodyParts { get; set; }
     public Equipment Equipment { get; set; }
     public List<Spell> Spells { get; set; }
     public int Experience { get; set; }
