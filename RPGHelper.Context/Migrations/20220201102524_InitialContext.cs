@@ -4,50 +4,22 @@
 
 namespace RPGHelper.Context.Migrations
 {
-    public partial class AddingPlayerCharacters : Migration
+    public partial class InitialContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Talent_SkillList_SkillName",
-                table: "Talent");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_SkillList",
-                table: "SkillList");
-
-            migrationBuilder.RenameTable(
-                name: "SkillList",
-                newName: "Skill");
-
-            migrationBuilder.AddColumn<string>(
-                name: "CareerName",
-                table: "Talent",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "PlayerCharacterId",
-                table: "Talent",
-                type: "INTEGER",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "CareerName",
-                table: "Skill",
-                type: "TEXT",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "PlayerCharacterId",
-                table: "Skill",
-                type: "INTEGER",
-                nullable: true);
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Skill",
-                table: "Skill",
-                column: "Name");
+            migrationBuilder.CreateTable(
+                name: "Career",
+                columns: table => new
+                {
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    IsAdvanced = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Career", x => x.Name);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Equipment",
@@ -74,8 +46,7 @@ namespace RPGHelper.Context.Migrations
                     StatTypeEnum = table.Column<int>(type: "INTEGER", nullable: false),
                     StartValue = table.Column<int>(type: "INTEGER", nullable: false),
                     AdvanceValue = table.Column<int>(type: "INTEGER", nullable: false),
-                    CurrentValue = table.Column<int>(type: "INTEGER", nullable: false),
-                    BoxAmount = table.Column<int>(type: "INTEGER", nullable: false)
+                    CurrentValue = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,8 +63,7 @@ namespace RPGHelper.Context.Migrations
                     StatTypeEnum = table.Column<int>(type: "INTEGER", nullable: false),
                     StartValue = table.Column<int>(type: "INTEGER", nullable: false),
                     AdvanceValue = table.Column<int>(type: "INTEGER", nullable: false),
-                    CurrentValue = table.Column<int>(type: "INTEGER", nullable: false),
-                    BoxAmount = table.Column<int>(type: "INTEGER", nullable: false)
+                    CurrentValue = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,7 +98,71 @@ namespace RPGHelper.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MainStats",
+                name: "CareerCareer",
+                columns: table => new
+                {
+                    EntriesName = table.Column<string>(type: "TEXT", nullable: false),
+                    ExitsName = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CareerCareer", x => new { x.EntriesName, x.ExitsName });
+                    table.ForeignKey(
+                        name: "FK_CareerCareer_Career_EntriesName",
+                        column: x => x.EntriesName,
+                        principalTable: "Career",
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CareerCareer_Career_ExitsName",
+                        column: x => x.ExitsName,
+                        principalTable: "Career",
+                        principalColumn: "Name",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MainStatsBoost",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TypeEnum = table.Column<int>(type: "INTEGER", nullable: false),
+                    PercentageAmount = table.Column<int>(type: "INTEGER", nullable: false),
+                    CareerName = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MainStatsBoost", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MainStatsBoost_Career_CareerName",
+                        column: x => x.CareerName,
+                        principalTable: "Career",
+                        principalColumn: "Name");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SecondaryStatsBoost",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    TypeEnum = table.Column<int>(type: "INTEGER", nullable: false),
+                    BoostAmount = table.Column<int>(type: "INTEGER", nullable: false),
+                    CareerName = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SecondaryStatsBoost", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SecondaryStatsBoost_Career_CareerName",
+                        column: x => x.CareerName,
+                        principalTable: "Career",
+                        principalColumn: "Name");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CharacterStats",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -140,67 +174,7 @@ namespace RPGHelper.Context.Migrations
                     AgId = table.Column<int>(type: "INTEGER", nullable: false),
                     IntId = table.Column<int>(type: "INTEGER", nullable: false),
                     WPId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FelId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MainStats", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MainStats_MainStatComponent_AgId",
-                        column: x => x.AgId,
-                        principalTable: "MainStatComponent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MainStats_MainStatComponent_BSId",
-                        column: x => x.BSId,
-                        principalTable: "MainStatComponent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MainStats_MainStatComponent_FelId",
-                        column: x => x.FelId,
-                        principalTable: "MainStatComponent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MainStats_MainStatComponent_IntId",
-                        column: x => x.IntId,
-                        principalTable: "MainStatComponent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MainStats_MainStatComponent_SId",
-                        column: x => x.SId,
-                        principalTable: "MainStatComponent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MainStats_MainStatComponent_TId",
-                        column: x => x.TId,
-                        principalTable: "MainStatComponent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MainStats_MainStatComponent_WPId",
-                        column: x => x.WPId,
-                        principalTable: "MainStatComponent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MainStats_MainStatComponent_WSId",
-                        column: x => x.WSId,
-                        principalTable: "MainStatComponent",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SecondaryStats",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    FelId = table.Column<int>(type: "INTEGER", nullable: false),
                     AId = table.Column<int>(type: "INTEGER", nullable: false),
                     WId = table.Column<int>(type: "INTEGER", nullable: false),
                     SBId = table.Column<int>(type: "INTEGER", nullable: false),
@@ -212,51 +186,99 @@ namespace RPGHelper.Context.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SecondaryStats", x => x.Id);
+                    table.PrimaryKey("PK_CharacterStats", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SecondaryStats_SecondaryStatComponent_AId",
+                        name: "FK_CharacterStats_MainStatComponent_AgId",
+                        column: x => x.AgId,
+                        principalTable: "MainStatComponent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacterStats_MainStatComponent_BSId",
+                        column: x => x.BSId,
+                        principalTable: "MainStatComponent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacterStats_MainStatComponent_FelId",
+                        column: x => x.FelId,
+                        principalTable: "MainStatComponent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacterStats_MainStatComponent_IntId",
+                        column: x => x.IntId,
+                        principalTable: "MainStatComponent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacterStats_MainStatComponent_SId",
+                        column: x => x.SId,
+                        principalTable: "MainStatComponent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacterStats_MainStatComponent_TId",
+                        column: x => x.TId,
+                        principalTable: "MainStatComponent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacterStats_MainStatComponent_WPId",
+                        column: x => x.WPId,
+                        principalTable: "MainStatComponent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacterStats_MainStatComponent_WSId",
+                        column: x => x.WSId,
+                        principalTable: "MainStatComponent",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CharacterStats_SecondaryStatComponent_AId",
                         column: x => x.AId,
                         principalTable: "SecondaryStatComponent",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SecondaryStats_SecondaryStatComponent_FPId",
+                        name: "FK_CharacterStats_SecondaryStatComponent_FPId",
                         column: x => x.FPId,
                         principalTable: "SecondaryStatComponent",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SecondaryStats_SecondaryStatComponent_IPId",
+                        name: "FK_CharacterStats_SecondaryStatComponent_IPId",
                         column: x => x.IPId,
                         principalTable: "SecondaryStatComponent",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SecondaryStats_SecondaryStatComponent_MagId",
+                        name: "FK_CharacterStats_SecondaryStatComponent_MagId",
                         column: x => x.MagId,
                         principalTable: "SecondaryStatComponent",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SecondaryStats_SecondaryStatComponent_MId",
+                        name: "FK_CharacterStats_SecondaryStatComponent_MId",
                         column: x => x.MId,
                         principalTable: "SecondaryStatComponent",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SecondaryStats_SecondaryStatComponent_SBId",
+                        name: "FK_CharacterStats_SecondaryStatComponent_SBId",
                         column: x => x.SBId,
                         principalTable: "SecondaryStatComponent",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SecondaryStats_SecondaryStatComponent_TBId",
+                        name: "FK_CharacterStats_SecondaryStatComponent_TBId",
                         column: x => x.TBId,
                         principalTable: "SecondaryStatComponent",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SecondaryStats_SecondaryStatComponent_WId",
+                        name: "FK_CharacterStats_SecondaryStatComponent_WId",
                         column: x => x.WId,
                         principalTable: "SecondaryStatComponent",
                         principalColumn: "Id",
@@ -291,99 +313,24 @@ namespace RPGHelper.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Career",
-                columns: table => new
-                {
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    IsAdvanced = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    MainStatsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SecondaryStatsId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Career", x => x.Name);
-                    table.ForeignKey(
-                        name: "FK_Career_MainStats_MainStatsId",
-                        column: x => x.MainStatsId,
-                        principalTable: "MainStats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Career_SecondaryStats_SecondaryStatsId",
-                        column: x => x.SecondaryStatsId,
-                        principalTable: "SecondaryStats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CharacterStats",
+                name: "Mark",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    MainStatsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SecondaryStatsId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CharacterStats", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CharacterStats_MainStats_MainStatsId",
-                        column: x => x.MainStatsId,
-                        principalTable: "MainStats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CharacterStats_SecondaryStats_SecondaryStatsId",
-                        column: x => x.SecondaryStatsId,
-                        principalTable: "SecondaryStats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Mark",
-                columns: table => new
-                {
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     Roll = table.Column<int>(type: "INTEGER", nullable: false),
                     RollMax = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     PersonalDetailsId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mark", x => x.Name);
+                    table.PrimaryKey("PK_Mark", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Mark_PersonalDetails_PersonalDetailsId",
                         column: x => x.PersonalDetailsId,
                         principalTable: "PersonalDetails",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CareerCareer",
-                columns: table => new
-                {
-                    EntriesName = table.Column<string>(type: "TEXT", nullable: false),
-                    ExitsName = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CareerCareer", x => new { x.EntriesName, x.ExitsName });
-                    table.ForeignKey(
-                        name: "FK_CareerCareer_Career_EntriesName",
-                        column: x => x.EntriesName,
-                        principalTable: "Career",
-                        principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CareerCareer_Career_ExitsName",
-                        column: x => x.ExitsName,
-                        principalTable: "Career",
-                        principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -440,7 +387,6 @@ namespace RPGHelper.Context.Migrations
                     Craftsmanship = table.Column<int>(type: "INTEGER", nullable: false),
                     Discriminator = table.Column<string>(type: "TEXT", nullable: false),
                     EquipmentId = table.Column<int>(type: "INTEGER", nullable: true),
-                    AP = table.Column<int>(type: "INTEGER", nullable: true),
                     Group = table.Column<int>(type: "INTEGER", nullable: true),
                     DamageId = table.Column<int>(type: "INTEGER", nullable: true),
                     PlayerCharacterId = table.Column<int>(type: "INTEGER", nullable: true)
@@ -467,23 +413,26 @@ namespace RPGHelper.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BodyPart",
+                name: "Skill",
                 columns: table => new
                 {
-                    BodyPartEnum = table.Column<int>(type: "INTEGER", nullable: false),
-                    WornArmourName = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    IsAdvanced = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Characteristic = table.Column<int>(type: "INTEGER", nullable: false),
+                    CareerName = table.Column<string>(type: "TEXT", nullable: true),
                     PlayerCharacterId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BodyPart", x => x.BodyPartEnum);
+                    table.PrimaryKey("PK_Skill", x => x.Name);
                     table.ForeignKey(
-                        name: "FK_BodyPart_Item_WornArmourName",
-                        column: x => x.WornArmourName,
-                        principalTable: "Item",
+                        name: "FK_Skill_Career_CareerName",
+                        column: x => x.CareerName,
+                        principalTable: "Career",
                         principalColumn: "Name");
                     table.ForeignKey(
-                        name: "FK_BodyPart_PlayerCharacters_PlayerCharacterId",
+                        name: "FK_Skill_PlayerCharacters_PlayerCharacterId",
                         column: x => x.PlayerCharacterId,
                         principalTable: "PlayerCharacters",
                         principalColumn: "Id");
@@ -535,45 +484,35 @@ namespace RPGHelper.Context.Migrations
                         principalColumn: "Name");
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Talent_CareerName",
-                table: "Talent",
-                column: "CareerName");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Talent_PlayerCharacterId",
-                table: "Talent",
-                column: "PlayerCharacterId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Skill_CareerName",
-                table: "Skill",
-                column: "CareerName");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Skill_PlayerCharacterId",
-                table: "Skill",
-                column: "PlayerCharacterId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BodyPart_PlayerCharacterId",
-                table: "BodyPart",
-                column: "PlayerCharacterId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BodyPart_WornArmourName",
-                table: "BodyPart",
-                column: "WornArmourName");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Career_MainStatsId",
-                table: "Career",
-                column: "MainStatsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Career_SecondaryStatsId",
-                table: "Career",
-                column: "SecondaryStatsId");
+            migrationBuilder.CreateTable(
+                name: "Talent",
+                columns: table => new
+                {
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    CareerName = table.Column<string>(type: "TEXT", nullable: true),
+                    PlayerCharacterId = table.Column<int>(type: "INTEGER", nullable: true),
+                    SkillName = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Talent", x => x.Name);
+                    table.ForeignKey(
+                        name: "FK_Talent_Career_CareerName",
+                        column: x => x.CareerName,
+                        principalTable: "Career",
+                        principalColumn: "Name");
+                    table.ForeignKey(
+                        name: "FK_Talent_PlayerCharacters_PlayerCharacterId",
+                        column: x => x.PlayerCharacterId,
+                        principalTable: "PlayerCharacters",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Talent_Skill_SkillName",
+                        column: x => x.SkillName,
+                        principalTable: "Skill",
+                        principalColumn: "Name");
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CareerCareer_ExitsName",
@@ -581,14 +520,84 @@ namespace RPGHelper.Context.Migrations
                 column: "ExitsName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CharacterStats_MainStatsId",
+                name: "IX_CharacterStats_AgId",
                 table: "CharacterStats",
-                column: "MainStatsId");
+                column: "AgId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CharacterStats_SecondaryStatsId",
+                name: "IX_CharacterStats_AId",
                 table: "CharacterStats",
-                column: "SecondaryStatsId");
+                column: "AId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_BSId",
+                table: "CharacterStats",
+                column: "BSId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_FelId",
+                table: "CharacterStats",
+                column: "FelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_FPId",
+                table: "CharacterStats",
+                column: "FPId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_IntId",
+                table: "CharacterStats",
+                column: "IntId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_IPId",
+                table: "CharacterStats",
+                column: "IPId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_MagId",
+                table: "CharacterStats",
+                column: "MagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_MId",
+                table: "CharacterStats",
+                column: "MId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_SBId",
+                table: "CharacterStats",
+                column: "SBId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_SId",
+                table: "CharacterStats",
+                column: "SId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_TBId",
+                table: "CharacterStats",
+                column: "TBId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_TId",
+                table: "CharacterStats",
+                column: "TId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_WId",
+                table: "CharacterStats",
+                column: "WId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_WPId",
+                table: "CharacterStats",
+                column: "WPId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterStats_WSId",
+                table: "CharacterStats",
+                column: "WSId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Item_DamageId",
@@ -606,44 +615,9 @@ namespace RPGHelper.Context.Migrations
                 column: "PlayerCharacterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MainStats_AgId",
-                table: "MainStats",
-                column: "AgId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MainStats_BSId",
-                table: "MainStats",
-                column: "BSId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MainStats_FelId",
-                table: "MainStats",
-                column: "FelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MainStats_IntId",
-                table: "MainStats",
-                column: "IntId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MainStats_SId",
-                table: "MainStats",
-                column: "SId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MainStats_TId",
-                table: "MainStats",
-                column: "TId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MainStats_WPId",
-                table: "MainStats",
-                column: "WPId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MainStats_WSId",
-                table: "MainStats",
-                column: "WSId");
+                name: "IX_MainStatsBoost_CareerName",
+                table: "MainStatsBoost",
+                column: "CareerName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Mark_PersonalDetailsId",
@@ -676,44 +650,19 @@ namespace RPGHelper.Context.Migrations
                 column: "PersonalDetailsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SecondaryStats_AId",
-                table: "SecondaryStats",
-                column: "AId");
+                name: "IX_SecondaryStatsBoost_CareerName",
+                table: "SecondaryStatsBoost",
+                column: "CareerName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SecondaryStats_FPId",
-                table: "SecondaryStats",
-                column: "FPId");
+                name: "IX_Skill_CareerName",
+                table: "Skill",
+                column: "CareerName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SecondaryStats_IPId",
-                table: "SecondaryStats",
-                column: "IPId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SecondaryStats_MagId",
-                table: "SecondaryStats",
-                column: "MagId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SecondaryStats_MId",
-                table: "SecondaryStats",
-                column: "MId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SecondaryStats_SBId",
-                table: "SecondaryStats",
-                column: "SBId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SecondaryStats_TBId",
-                table: "SecondaryStats",
-                column: "TBId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SecondaryStats_WId",
-                table: "SecondaryStats",
-                column: "WId");
+                name: "IX_Skill_PlayerCharacterId",
+                table: "Skill",
+                column: "PlayerCharacterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Spell_IngredientName",
@@ -726,82 +675,51 @@ namespace RPGHelper.Context.Migrations
                 column: "PlayerCharacterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Talent_CareerName",
+                table: "Talent",
+                column: "CareerName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Talent_PlayerCharacterId",
+                table: "Talent",
+                column: "PlayerCharacterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Talent_SkillName",
+                table: "Talent",
+                column: "SkillName");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WeaponQuality_WeaponName",
                 table: "WeaponQuality",
                 column: "WeaponName");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Skill_Career_CareerName",
-                table: "Skill",
-                column: "CareerName",
-                principalTable: "Career",
-                principalColumn: "Name");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Skill_PlayerCharacters_PlayerCharacterId",
-                table: "Skill",
-                column: "PlayerCharacterId",
-                principalTable: "PlayerCharacters",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Talent_Career_CareerName",
-                table: "Talent",
-                column: "CareerName",
-                principalTable: "Career",
-                principalColumn: "Name");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Talent_PlayerCharacters_PlayerCharacterId",
-                table: "Talent",
-                column: "PlayerCharacterId",
-                principalTable: "PlayerCharacters",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Talent_Skill_SkillName",
-                table: "Talent",
-                column: "SkillName",
-                principalTable: "Skill",
-                principalColumn: "Name");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Skill_Career_CareerName",
-                table: "Skill");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Skill_PlayerCharacters_PlayerCharacterId",
-                table: "Skill");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Talent_Career_CareerName",
-                table: "Talent");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Talent_PlayerCharacters_PlayerCharacterId",
-                table: "Talent");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Talent_Skill_SkillName",
-                table: "Talent");
-
-            migrationBuilder.DropTable(
-                name: "BodyPart");
-
             migrationBuilder.DropTable(
                 name: "CareerCareer");
+
+            migrationBuilder.DropTable(
+                name: "MainStatsBoost");
 
             migrationBuilder.DropTable(
                 name: "Mark");
 
             migrationBuilder.DropTable(
+                name: "SecondaryStatsBoost");
+
+            migrationBuilder.DropTable(
                 name: "Spell");
 
             migrationBuilder.DropTable(
+                name: "Talent");
+
+            migrationBuilder.DropTable(
                 name: "WeaponQuality");
+
+            migrationBuilder.DropTable(
+                name: "Skill");
 
             migrationBuilder.DropTable(
                 name: "Item");
@@ -825,71 +743,13 @@ namespace RPGHelper.Context.Migrations
                 name: "PersonalDetails");
 
             migrationBuilder.DropTable(
-                name: "MainStats");
-
-            migrationBuilder.DropTable(
-                name: "SecondaryStats");
-
-            migrationBuilder.DropTable(
-                name: "StarSign");
-
-            migrationBuilder.DropTable(
                 name: "MainStatComponent");
 
             migrationBuilder.DropTable(
                 name: "SecondaryStatComponent");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Talent_CareerName",
-                table: "Talent");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Talent_PlayerCharacterId",
-                table: "Talent");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Skill",
-                table: "Skill");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Skill_CareerName",
-                table: "Skill");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Skill_PlayerCharacterId",
-                table: "Skill");
-
-            migrationBuilder.DropColumn(
-                name: "CareerName",
-                table: "Talent");
-
-            migrationBuilder.DropColumn(
-                name: "PlayerCharacterId",
-                table: "Talent");
-
-            migrationBuilder.DropColumn(
-                name: "CareerName",
-                table: "Skill");
-
-            migrationBuilder.DropColumn(
-                name: "PlayerCharacterId",
-                table: "Skill");
-
-            migrationBuilder.RenameTable(
-                name: "Skill",
-                newName: "SkillList");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_SkillList",
-                table: "SkillList",
-                column: "Name");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Talent_SkillList_SkillName",
-                table: "Talent",
-                column: "SkillName",
-                principalTable: "SkillList",
-                principalColumn: "Name");
+            migrationBuilder.DropTable(
+                name: "StarSign");
         }
     }
 }

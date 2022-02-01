@@ -4,7 +4,7 @@
 
 namespace RPGHelper.Context.Migrations
 {
-    public partial class AddedPlayers : Migration
+    public partial class AddedPlayerList : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

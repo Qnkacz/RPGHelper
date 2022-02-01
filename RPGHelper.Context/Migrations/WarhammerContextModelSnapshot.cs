@@ -46,26 +46,6 @@ namespace RPGHelper.Context.Migrations
                     b.ToTable("PlayerList");
                 });
 
-            modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.BodyPart", b =>
-                {
-                    b.Property<int>("BodyPartEnum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("PlayerCharacterId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("WornArmourName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("BodyPartEnum");
-
-                    b.HasIndex("PlayerCharacterId");
-
-                    b.HasIndex("WornArmourName");
-
-                    b.ToTable("BodyPart");
-                });
-
             modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.CharacterStats", b =>
                 {
                     b.Property<int>("Id")
@@ -204,60 +184,14 @@ namespace RPGHelper.Context.Migrations
                     b.ToTable("MainStatComponent");
                 });
 
-            modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStats", b =>
+            modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.Mark", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AgId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BSId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("FelId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IntId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("TId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("WPId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("WSId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AgId");
-
-                    b.HasIndex("BSId");
-
-                    b.HasIndex("FelId");
-
-                    b.HasIndex("IntId");
-
-                    b.HasIndex("SId");
-
-                    b.HasIndex("TId");
-
-                    b.HasIndex("WPId");
-
-                    b.HasIndex("WSId");
-
-                    b.ToTable("MainStats");
-                });
-
-            modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.Mark", b =>
-                {
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("PersonalDetailsId")
@@ -269,7 +203,7 @@ namespace RPGHelper.Context.Migrations
                     b.Property<int>("RollMax")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.HasIndex("PersonalDetailsId");
 
@@ -367,57 +301,6 @@ namespace RPGHelper.Context.Migrations
                     b.ToTable("PlayerCharacters");
                 });
 
-            modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.SecondaryStats", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("AId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("FPId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("IPId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("MagId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SBId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("TBId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("WId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AId");
-
-                    b.HasIndex("FPId");
-
-                    b.HasIndex("IPId");
-
-                    b.HasIndex("MId");
-
-                    b.HasIndex("MagId");
-
-                    b.HasIndex("SBId");
-
-                    b.HasIndex("TBId");
-
-                    b.HasIndex("WId");
-
-                    b.ToTable("SecondaryStats");
-                });
-
             modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.Skill", b =>
                 {
                     b.Property<string>("Name")
@@ -503,17 +386,7 @@ namespace RPGHelper.Context.Migrations
                     b.Property<bool>("IsAdvanced")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MainStatsId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SecondaryStatsId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Name");
-
-                    b.HasIndex("MainStatsId");
-
-                    b.HasIndex("SecondaryStatsId");
 
                     b.ToTable("Career");
                 });
@@ -651,14 +524,48 @@ namespace RPGHelper.Context.Migrations
                     b.ToTable("Spell");
                 });
 
-            modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.Items.Armour.Armour", b =>
+            modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.MainStatsBoost", b =>
                 {
-                    b.HasBaseType("RPGHelper.Models.Models.WarhammerFantasy.Items.Item");
-
-                    b.Property<int>("AP")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.HasDiscriminator().HasValue("Armour");
+                    b.Property<string>("CareerName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PercentageAmount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TypeEnum")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CareerName");
+
+                    b.ToTable("MainStatsBoost");
+                });
+
+            modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.SecondaryStatsBoost", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BoostAmount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CareerName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TypeEnum")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CareerName");
+
+                    b.ToTable("SecondaryStatsBoost");
                 });
 
             modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.Items.Weapon", b =>
@@ -694,19 +601,6 @@ namespace RPGHelper.Context.Migrations
                         .HasForeignKey("ExitsName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.BodyPart", b =>
-                {
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.PlayerCharacter", null)
-                        .WithMany("BodyParts")
-                        .HasForeignKey("PlayerCharacterId");
-
-                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Items.Armour.Armour", "WornArmour")
-                        .WithMany()
-                        .HasForeignKey("WornArmourName");
-
-                    b.Navigation("WornArmour");
                 });
 
             modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.CharacterStats", b =>
@@ -840,73 +734,6 @@ namespace RPGHelper.Context.Migrations
                     b.Navigation("WS");
                 });
 
-            modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStats", b =>
-                {
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStatComponent", "Ag")
-                        .WithMany()
-                        .HasForeignKey("AgId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStatComponent", "BS")
-                        .WithMany()
-                        .HasForeignKey("BSId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStatComponent", "Fel")
-                        .WithMany()
-                        .HasForeignKey("FelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStatComponent", "Int")
-                        .WithMany()
-                        .HasForeignKey("IntId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStatComponent", "S")
-                        .WithMany()
-                        .HasForeignKey("SId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStatComponent", "T")
-                        .WithMany()
-                        .HasForeignKey("TId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStatComponent", "WP")
-                        .WithMany()
-                        .HasForeignKey("WPId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStatComponent", "WS")
-                        .WithMany()
-                        .HasForeignKey("WSId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ag");
-
-                    b.Navigation("BS");
-
-                    b.Navigation("Fel");
-
-                    b.Navigation("Int");
-
-                    b.Navigation("S");
-
-                    b.Navigation("T");
-
-                    b.Navigation("WP");
-
-                    b.Navigation("WS");
-                });
-
             modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.Mark", b =>
                 {
                     b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.PersonalDetails", null)
@@ -964,73 +791,6 @@ namespace RPGHelper.Context.Migrations
                     b.Navigation("PersonalDetails");
                 });
 
-            modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.SecondaryStats", b =>
-                {
-                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats.SecondaryStatComponent", "A")
-                        .WithMany()
-                        .HasForeignKey("AId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats.SecondaryStatComponent", "FP")
-                        .WithMany()
-                        .HasForeignKey("FPId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats.SecondaryStatComponent", "IP")
-                        .WithMany()
-                        .HasForeignKey("IPId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats.SecondaryStatComponent", "M")
-                        .WithMany()
-                        .HasForeignKey("MId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats.SecondaryStatComponent", "Mag")
-                        .WithMany()
-                        .HasForeignKey("MagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats.SecondaryStatComponent", "SB")
-                        .WithMany()
-                        .HasForeignKey("SBId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats.SecondaryStatComponent", "TB")
-                        .WithMany()
-                        .HasForeignKey("TBId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats.SecondaryStatComponent", "W")
-                        .WithMany()
-                        .HasForeignKey("WId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("A");
-
-                    b.Navigation("FP");
-
-                    b.Navigation("IP");
-
-                    b.Navigation("M");
-
-                    b.Navigation("Mag");
-
-                    b.Navigation("SB");
-
-                    b.Navigation("TB");
-
-                    b.Navigation("W");
-                });
-
             modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.Skill", b =>
                 {
                     b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Career", null)
@@ -1055,25 +815,6 @@ namespace RPGHelper.Context.Migrations
                     b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.Skill", null)
                         .WithMany("RelatedTalents")
                         .HasForeignKey("SkillName");
-                });
-
-            modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.Career", b =>
-                {
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.MainStats", "MainStats")
-                        .WithMany()
-                        .HasForeignKey("MainStatsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RPGHelper.Context.Models.WarhammerFantasy.Character.SecondaryStats", "SecondaryStats")
-                        .WithMany()
-                        .HasForeignKey("SecondaryStatsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MainStats");
-
-                    b.Navigation("SecondaryStats");
                 });
 
             modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.Items.Item", b =>
@@ -1103,6 +844,20 @@ namespace RPGHelper.Context.Migrations
                         .HasForeignKey("PlayerCharacterId");
 
                     b.Navigation("Ingredient");
+                });
+
+            modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.MainStatsBoost", b =>
+                {
+                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Career", null)
+                        .WithMany("MainStatsBoosts")
+                        .HasForeignKey("CareerName");
+                });
+
+            modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.SecondaryStatsBoost", b =>
+                {
+                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Career", null)
+                        .WithMany("SecondaryStatsBoosts")
+                        .HasForeignKey("CareerName");
                 });
 
             modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.Items.Weapon", b =>
@@ -1137,8 +892,6 @@ namespace RPGHelper.Context.Migrations
 
             modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.PlayerCharacter", b =>
                 {
-                    b.Navigation("BodyParts");
-
                     b.Navigation("KnownSkills");
 
                     b.Navigation("KnownTalents");
@@ -1156,6 +909,10 @@ namespace RPGHelper.Context.Migrations
             modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.Career", b =>
                 {
                     b.Navigation("AvailableSkills");
+
+                    b.Navigation("MainStatsBoosts");
+
+                    b.Navigation("SecondaryStatsBoosts");
 
                     b.Navigation("Talents");
                 });

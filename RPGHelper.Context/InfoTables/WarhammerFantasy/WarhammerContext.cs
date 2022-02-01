@@ -9,7 +9,6 @@ public class WarhammerContext : DbContext
 {
     public DbSet<PlayerCharacter> PlayerCharacters { get; set; }
     public DbSet<Player> PlayerList { get; set; }
-    public DbSet<Weight> Weights { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source=/home/qnku/RiderProjects/RPGHelper/RPGHelper.Context/Data.db");
