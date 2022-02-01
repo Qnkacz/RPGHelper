@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using RPGHelper.Context.Models.WarhammerFantasy.Character;
 using RPGHelper.Functionality.Models.WarhammerFantasy;
 
 // var result =await Talents.GetTalents();
@@ -8,7 +9,15 @@ using RPGHelper.Functionality.Models.WarhammerFantasy;
 // {
 //     Console.WriteLine(o.Name);
 // }
-AddIdsToAllCsvFiles("/home/qnku/RiderProjects/RPGHelper/RPGHelper.Models/Makeshift Excel DB");
+// AddIdsToAllCsvFiles("/home/qnku/RiderProjects/RPGHelper/RPGHelper.Models/Makeshift Excel DB");
+
+var talentsfromcsv =await Talents.GetTalents();
+List<Talent> talentList = Talents.ConvertToTalentsList(talentsfromcsv);
+
+foreach (var talent in talentList)
+{
+    Console.WriteLine(talent.ToString());
+}
 void AddIdsToAllCsvFiles(string directoryPath)
 {
     var files = Directory.GetFiles(directoryPath, "*.csv", SearchOption.AllDirectories);
