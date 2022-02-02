@@ -73,4 +73,25 @@ public class Skills
 
         return skillList;
     }
+
+    public static async Task PutSkillsToDB()
+    {
+        var dbcontext = new WarhammerContext();
+        List<dynamic> skillsincsv = new();
+        var GetSkillsTasks = new List<Task>();
+        GetSkillsTasks.Add( Task.FromResult(() =>
+        {
+            skillsincsv.AddRange(new[] {GetBasic()});
+        }));
+        GetSkillsTasks.Add( Task.FromResult(() =>
+        {
+            skillsincsv.AddRange(new[] {GetAdvanced()});
+        }));
+
+        await Task.WhenAll(GetSkillsTasks);
+
+        List<Skill> outputSkills = ConvertToSkillList(skillsincsv);
+        
+        dbcontext.Skills.AddRange(outputSkills);
+    }
 }

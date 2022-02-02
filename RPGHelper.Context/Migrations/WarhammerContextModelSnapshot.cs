@@ -328,7 +328,7 @@ namespace RPGHelper.Context.Migrations
 
                     b.HasIndex("PlayerCharacterId");
 
-                    b.ToTable("Skill");
+                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("RPGHelper.Context.Models.WarhammerFantasy.Character.StarSign", b =>
