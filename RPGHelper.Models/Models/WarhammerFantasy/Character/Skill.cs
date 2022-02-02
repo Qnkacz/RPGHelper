@@ -12,4 +12,9 @@ public class Skill
     [EnumDataType(typeof(MainStatTypeEnum))]
     public MainStatTypeEnum Characteristic { get; set; }
     public List<Talent> RelatedTalents { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Name},characteristic: {Characteristic.ToString()},RelatedtalentsCount: {RelatedTalents.Count}";
+    }
 }

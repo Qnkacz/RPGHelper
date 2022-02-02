@@ -46,7 +46,7 @@ public class Skills
 
     public static List<Skill> ConvertToSkillList(List<dynamic> list)
     {
-        var dbContext = new WarhammerContext();
+        
         List<Skill> skillList = new();
 
         foreach (var item in list)
@@ -58,7 +58,7 @@ public class Skills
             foreach (var s in talentList)
             {
                 if (!string.IsNullOrEmpty(s))
-                    selectedTalents.Add(dbContext.Talents.Find(s)!);
+                    selectedTalents.Add(Context.warhammerContext.Talents.Find(s)!);
             }
 
             skillList.Add(new Skill
@@ -74,24 +74,29 @@ public class Skills
         return skillList;
     }
 
-    public static async Task PutSkillsToDB()
+    public static async Task PutSkillsToDb()
     {
-        var dbcontext = new WarhammerContext();
         List<dynamic> skillsincsv = new();
-        var GetSkillsTasks = new List<Task>();
-        GetSkillsTasks.Add( Task.FromResult(() =>
-        {
-            skillsincsv.AddRange(new[] {GetBasic()});
-        }));
-        GetSkillsTasks.Add( Task.FromResult(() =>
-        {
-            skillsincsv.AddRange(new[] {GetAdvanced()});
-        }));
-
-        await Task.WhenAll(GetSkillsTasks);
+        skillsincsv.AddRange(await GetBasic());
+        skillsincsv.AddRange(await GetAdvanced());
 
         List<Skill> outputSkills = ConvertToSkillList(skillsincsv);
-        
-        dbcontext.Skills.AddRange(outputSkills);
+
+        for (int i = 0; i < outputSkills.Count; i++)
+        {
+            try
+            {
+                Context.warhammerContext.Skills.Add(outputSkills[i]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"I threw up on skill number: {i} and the name is: {outputSkills[i].Name}");
+                Console.WriteLine(outputSkills[i]);
+                outputSkills[i].RelatedTalents.ForEach(Console.WriteLine);
+                throw;
+            }
+        }
+
+        await Context.warhammerContext.SaveChangesAsync();
     }
 }

@@ -41,10 +41,9 @@ public static class Talents
 
     public static async Task PutTalentsToDB()
     {
-        var dbContext = new WarhammerContext();
         var talentsFromCsv = await GetTalents();
         var convertedTalents = ConvertToTalentsList(talentsFromCsv);
-        await dbContext.AddRangeAsync(convertedTalents);
-        await dbContext.SaveChangesAsync();
+        await Context.warhammerContext.AddRangeAsync(convertedTalents);
+        await Context.warhammerContext.SaveChangesAsync();
     }
 }
