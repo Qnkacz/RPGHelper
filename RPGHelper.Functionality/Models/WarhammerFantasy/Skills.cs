@@ -112,7 +112,7 @@ public class Skills
     }
     public static async Task<List<Skill>?> GetListByName(string name)
     {
-        var skills =  Context.warhammerContext.Skills.Where(Skills => Skills.Name.Contains(name)).ToList();
+        var skills =  Context.warhammerContext.Skills.Where(Skills => Skills.Name.ToLower().Contains(name.ToLower())).ToList();
         return skills;
     }
     

@@ -24,4 +24,25 @@ public class RPGCommands : BaseCommandModule
                 break;
         }
     }
+
+    [Command("Skills")]
+    public async Task GetSkillsInfo(CommandContext ctx)
+    {
+        switch (ctx.Prefix)
+        {
+            case "whf>":
+                await SkillInfo.GiveSkillList(ctx);
+                break;
+        }
+    }
+    [Command("Skill")]
+    public async Task GetSkillInfo(CommandContext ctx, string name)
+    {
+        switch (ctx.Prefix)
+        {
+            case "whf>":
+                await SkillInfo.GiveSkillInto(ctx, name);
+                break;
+        }
+    }
 }
