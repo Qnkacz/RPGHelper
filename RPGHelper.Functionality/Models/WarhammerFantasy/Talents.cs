@@ -55,12 +55,12 @@ public static class Talents
 
     public static async Task<Talent?> GetByName(string name)
     {
-        var talent =  Context.warhammerContext.Talents.First(talent => talent.Name.Contains(name));
+        var talent =  Context.warhammerContext.Talents.First(talent => talent.Name.ToLower().Contains(name.ToLower()));
         return talent;
     }
     public static async Task<List<Talent>?> GetListByName(string name)
     {
-        var talent =  Context.warhammerContext.Talents.Where(talent => talent.Name.Contains(name)).ToList();
+        var talent =  Context.warhammerContext.Talents.Where(talent => talent.Name.ToLower().Contains(name.ToLower())).ToList();
         return talent;
     }
 }
