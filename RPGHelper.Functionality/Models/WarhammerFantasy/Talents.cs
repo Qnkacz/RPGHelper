@@ -46,4 +46,21 @@ public static class Talents
         await Context.warhammerContext.AddRangeAsync(convertedTalents);
         await Context.warhammerContext.SaveChangesAsync();
     }
+
+    public static async Task<List<Talent>?> GetTalentsFromDB()
+    {
+        var talents = Context.warhammerContext.Talents.ToList();
+        return talents.Count == 0 ? null : talents;
+    }
+
+    public static async Task<Talent?> GetByName(string name)
+    {
+        var talent =  Context.warhammerContext.Talents.First(talent => talent.Name.Contains(name));
+        return talent;
+    }
+    public static async Task<List<Talent>?> GetListByName(string name)
+    {
+        var talent =  Context.warhammerContext.Talents.Where(talent => talent.Name.Contains(name)).ToList();
+        return talent;
+    }
 }
