@@ -10,7 +10,7 @@ public class RPGCommands : BaseCommandModule
         switch (ctx.Prefix)
         {
             case "whf>":
-                await LoreInfo.GiveTalentInto(ctx, name);
+                await TalentInfo.GiveTalentInto(ctx, name);
                 break;
         }
     }
@@ -20,7 +20,7 @@ public class RPGCommands : BaseCommandModule
         switch (ctx.Prefix)
         {
             case "whf>":
-                await LoreInfo.GiveTalentList(ctx);
+                await TalentInfo.GiveTalentList(ctx);
                 break;
         }
     }

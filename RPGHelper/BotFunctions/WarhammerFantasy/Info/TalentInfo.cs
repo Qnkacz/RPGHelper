@@ -4,7 +4,7 @@ using RPGHelper.Functionality.Models.WarhammerFantasy;
 
 namespace RPGHelper.BotFunctions.WarhammerFantasy.Info;
 
-public class LoreInfo : BaseCommandModule
+public class TalentInfo : BaseCommandModule
 {
     public static async Task GiveTalentInto(CommandContext ctx, string talentName)
     {
