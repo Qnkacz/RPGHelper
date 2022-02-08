@@ -50,4 +50,10 @@ public static class Careers
 
         return outputList;
     }
+    public static async Task PutSimpleCareersToDB()
+    {
+        var careers = await GetAllSimplifiedCareersList();
+        await Context.warhammerContext.AddRangeAsync(careers!);
+        await Context.warhammerContext.SaveChangesAsync();
+    }
 }

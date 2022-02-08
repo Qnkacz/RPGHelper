@@ -99,4 +99,21 @@ public class Skills
 
         await Context.warhammerContext.SaveChangesAsync();
     }
+    public static async Task<List<Skill>?> GetSkillsFromDB()
+    {
+        var skills =  Context.warhammerContext.Skills.ToList();
+        return skills;
+    }
+    
+    public static async Task<Skill?> GetByName(string name)
+    {
+        var skills =  Context.warhammerContext.Skills.First(Skills => Skills.Name.Contains(name));
+        return skills;
+    }
+    public static async Task<List<Skill>?> GetListByName(string name)
+    {
+        var skills =  Context.warhammerContext.Skills.Where(Skills => Skills.Name.Contains(name)).ToList();
+        return skills;
+    }
+    
 }
