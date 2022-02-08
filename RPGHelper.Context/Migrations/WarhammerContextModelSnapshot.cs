@@ -391,6 +391,39 @@ namespace RPGHelper.Context.Migrations
                     b.ToTable("Career");
                 });
 
+            modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.CareerSimplified", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AvailableSkills")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Entries")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Exits")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsAdvanced")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Talents")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("SimpleCareers");
+                });
+
             modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.Character.Character_Stats.SecondaryStats.SecondaryStatComponent", b =>
                 {
                     b.Property<int>("Id")
@@ -533,6 +566,9 @@ namespace RPGHelper.Context.Migrations
                     b.Property<string>("CareerName")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CareerSimplifiedName")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("PercentageAmount")
                         .HasColumnType("INTEGER");
 
@@ -542,6 +578,8 @@ namespace RPGHelper.Context.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CareerName");
+
+                    b.HasIndex("CareerSimplifiedName");
 
                     b.ToTable("MainStatsBoost");
                 });
@@ -558,12 +596,17 @@ namespace RPGHelper.Context.Migrations
                     b.Property<string>("CareerName")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("CareerSimplifiedName")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("TypeEnum")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CareerName");
+
+                    b.HasIndex("CareerSimplifiedName");
 
                     b.ToTable("SecondaryStatsBoost");
                 });
@@ -851,6 +894,10 @@ namespace RPGHelper.Context.Migrations
                     b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Career", null)
                         .WithMany("MainStatsBoosts")
                         .HasForeignKey("CareerName");
+
+                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.CareerSimplified", null)
+                        .WithMany("MainStatsBoosts")
+                        .HasForeignKey("CareerSimplifiedName");
                 });
 
             modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.SecondaryStatsBoost", b =>
@@ -858,6 +905,10 @@ namespace RPGHelper.Context.Migrations
                     b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.Career", null)
                         .WithMany("SecondaryStatsBoosts")
                         .HasForeignKey("CareerName");
+
+                    b.HasOne("RPGHelper.Models.Models.WarhammerFantasy.CareerSimplified", null)
+                        .WithMany("SecondaryStatsBoosts")
+                        .HasForeignKey("CareerSimplifiedName");
                 });
 
             modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.Items.Weapon", b =>
@@ -915,6 +966,13 @@ namespace RPGHelper.Context.Migrations
                     b.Navigation("SecondaryStatsBoosts");
 
                     b.Navigation("Talents");
+                });
+
+            modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.CareerSimplified", b =>
+                {
+                    b.Navigation("MainStatsBoosts");
+
+                    b.Navigation("SecondaryStatsBoosts");
                 });
 
             modelBuilder.Entity("RPGHelper.Models.Models.WarhammerFantasy.Items.Weapon", b =>

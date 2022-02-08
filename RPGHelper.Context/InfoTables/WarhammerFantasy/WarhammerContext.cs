@@ -11,6 +11,7 @@ public class WarhammerContext : DbContext
     public DbSet<Player> PlayerList { get; set; }
     public DbSet<Talent> Talents { get; set; }
     public DbSet<Skill> Skills { get; set; }
+    public DbSet<CareerSimplified> SimpleCareers { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source=/home/qnku/RiderProjects/RPGHelper/RPGHelper.Context/Data.db");

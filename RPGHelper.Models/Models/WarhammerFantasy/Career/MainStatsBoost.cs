@@ -19,7 +19,6 @@ public class MainStatsBoost
         {
             outputList.Add(new MainStatsBoost
             {
-                Id = i,
                 TypeEnum = (MainStatTypeEnum)i,
                 PercentageAmount = int.Parse(boostStringArr[i])
             });

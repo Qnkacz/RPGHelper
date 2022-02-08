@@ -20,7 +20,6 @@ public class SecondaryStatsBoost
         {
             outputList.Add(new SecondaryStatsBoost
             {
-                Id = i,
                 TypeEnum = (SecondaryStatTypeEnum)i,
                 BoostAmount = int.Parse(boostStringArr[i])
             });

@@ -1,18 +1,20 @@
+using System.ComponentModel.DataAnnotations;
 using RPGHelper.Context.Models.WarhammerFantasy.Character;
 
 namespace RPGHelper.Models.Models.WarhammerFantasy;
 
 public class CareerSimplified
 {
+    [Key]
     public string Name { get; set; }
     public bool IsAdvanced { get; set; }
     public string Description { get; set; }
     public List<MainStatsBoost> MainStatsBoosts { get; set; }
     public List<SecondaryStatsBoost> SecondaryStatsBoosts { get; set; }
-    public string[] AvailableSkills { get; set; }
-    public string[] Talents { get; set; }
-    public string[] Entries { get; set; }
-    public string[] Exits { get; set; }
+    public string AvailableSkills { get; set; }
+    public string Talents { get; set; }
+    public string Entries { get; set; }
+    public string Exits { get; set; }
 
     public static CareerSimplified? ConvertToAdvanced(dynamic? obj)
     {
@@ -24,10 +26,10 @@ public class CareerSimplified
             Description = obj.Description,
             MainStatsBoosts = MainStatsBoost.GetFromDynamic(obj),
             SecondaryStatsBoosts = SecondaryStatsBoost.GetFromDynamic(obj),
-            AvailableSkills = obj.Skills.Split(","),
-            Talents = obj.Talents.Split(","),
-            Entries = obj.Entries.Split(","),
-            Exits = obj.Exits.Split(",")
+            AvailableSkills = obj.Skills,
+            Talents = obj.Talents,
+            Entries = obj.Entries,
+            Exits = obj.Exits
         };
         return output;
     }
@@ -41,10 +43,10 @@ public class CareerSimplified
             Description = obj.Description,
             MainStatsBoosts = MainStatsBoost.GetFromDynamic(obj),
             SecondaryStatsBoosts = SecondaryStatsBoost.GetFromDynamic(obj),
-            AvailableSkills = obj.Skills.Split(","),
-            Talents = obj.Talents.Split(","),
-            Entries = obj.Entries.Split(","),
-            Exits = obj.Exits.Split(",")
+            AvailableSkills = obj.Skills,
+            Talents = obj.Talents,
+            Entries = obj.Entries,
+            Exits = obj.Exits
         };
         return output;
     }
