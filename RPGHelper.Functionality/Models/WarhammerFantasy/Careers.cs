@@ -24,4 +24,30 @@ public static class Careers
             "/home/qnku/RiderProjects/RPGHelper/RPGHelper.Models/Makeshift Excel DB/AdvancedCareers_Simplified.csv";
         return await Task.Run(()=>CSVHelper.GetDynamicFromCsvFile(path)) ?? throw new Exception("list was null");
     }
+
+    public static async Task<List<CareerSimplified>?> GetAdvancedSimplifiedCareersList()
+    {
+        var csvValues =await GetAdvancedCareersSimplifiedCSV();
+        var output = CareerSimplified.ConvertToList(csvValues, true);
+
+        return output;
+    }
+    public static async Task<List<CareerSimplified>?> GetBasicSimplifiedCareersList()
+    {
+        var csvValues =await GetBasicCareersSimplifiedCSV();
+        var output = CareerSimplified.ConvertToList(csvValues, false);
+
+        return output;
+    }
+    public static async Task<List<CareerSimplified>?> GetAllSimplifiedCareersList()
+    {
+        var basicValues = GetBasicCareersSimplifiedCSV();
+        var advancedValues = GetBasicCareersSimplifiedCSV();
+        await Task.WhenAll(basicValues, advancedValues);
+        List<CareerSimplified> outputList = new();
+        outputList.AddRange(await GetBasicSimplifiedCareersList() ?? throw new InvalidOperationException());
+        outputList.AddRange(await GetAdvancedSimplifiedCareersList() ?? throw new InvalidOperationException());
+
+        return outputList;
+    }
 }
