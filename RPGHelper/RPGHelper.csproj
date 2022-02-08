@@ -16,10 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Commands\WarhammerFantasy" />
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\RPGHelper.Context\RPGHelper.Context.csproj" />
         <ProjectReference Include="..\RPGHelper.Functionality\RPGHelper.Functionality.csproj" />
         <ProjectReference Include="..\RPGHelper.Models\RPGHelper.Models.csproj" />

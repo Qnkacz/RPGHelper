@@ -1,4 +1,5 @@
 using DSharpPlus.Entities;
+using RPGHelper.Commands;
 
 namespace RPGHelper.Service;
 
@@ -50,6 +51,7 @@ public class Bot
 
         Commands = Client.UseCommandsNext(commandConfig);
         Commands.RegisterCommands<Info>();
+        Commands.RegisterCommands<RPGCommands>();
         await Client.ConnectAsync();
 
         await Task.Delay(-1);
